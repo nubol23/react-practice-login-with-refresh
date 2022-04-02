@@ -23,7 +23,7 @@ const onResponseError = async (error) => {
     // Access Token was expired
     if (
       error.response.status === 401
-      // && error.response.data.message === "jwt expired"
+      // && error.response.detail === "Given token not valid for any token type"
     ) {
       let user = JSON.parse(localStorage.getItem("user"));
 
