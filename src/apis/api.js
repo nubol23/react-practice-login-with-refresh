@@ -26,15 +26,12 @@ class Api {
     return new Promise((resolve, reject) => {
       this.axiosInstance.get(path)
         .then((response) => {
-          if (response) {
-            resolve(response);
-          }
+          if (response) resolve(response);
           reject();
         })
         .catch((error) => {
           // Retry request if returned 401 as the token was refreshed
           if (error.response.status === 401) {
-            console.log("Retried request")
             resolve(this.axiosInstance.get(path)
               .then((response) => response)
               .catch((error) => error))

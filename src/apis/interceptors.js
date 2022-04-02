@@ -28,9 +28,7 @@ const onResponseError = async (error) => {
       let user = JSON.parse(localStorage.getItem("user"));
 
       try {
-        console.log("REFRESHED TOKEN");
-        
-        // Update access token
+        // Refresh access token
         const response = await axios.post(`${API_URL}users/token/refresh/`, {
           refresh: user.refreshToken,
         });
