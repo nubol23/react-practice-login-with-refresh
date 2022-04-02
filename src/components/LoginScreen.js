@@ -1,9 +1,10 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {useForm} from "../hooks/useForm";
 import authApi from "../apis/authApi";
 import jwtDecode from "jwt-decode";
 import {AuthContext} from "../auth/authContext";
 import {authTypes} from "../auth/authTypes";
+import {useNavigate} from "react-router-dom";
 
 const LoginScreen = () => {
 
@@ -14,13 +15,14 @@ const LoginScreen = () => {
     password: "",
   });
 
+  const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
+
   const handleLogin = (e) => {
     e.preventDefault();
 
     if (email === "" || password === "") return;
-
-    console.log(email)
-    console.log(password)
 
     authApi.post("users/token/", {
       email,
@@ -40,9 +42,13 @@ const LoginScreen = () => {
         }
 
         userDispatch({type: authTypes.login, payload})
+
+        setMessage("");
+
+        navigate("/home", {replace: true});
       })
       .catch((error) => {
-        console.log("Error al autenticar")
+        setMessage(msg => "Error al autenticar")
       })
 
   }
@@ -69,6 +75,10 @@ const LoginScreen = () => {
         <button type="submit">
           Login
         </button>
+        <br/>
+        {
+          (message !== "") && <p>{message}</p>
+        }
       </form>
     </div>
   );
