@@ -9,7 +9,7 @@ const init = () => {
 
 const App = () => {
 
-  const [user, dispatch] = useReducer(authReducer, {}, init);
+  const [user, userDispatch] = useReducer(authReducer, {}, init);
 
   useEffect(() => {
     if (!user) return;
@@ -17,7 +17,7 @@ const App = () => {
   }, [user])
 
   return (
-    <AuthContext.Provider value={{user, dispatch}}>
+    <AuthContext.Provider value={{user, userDispatch}}>
       <AppRouter/>
     </AuthContext.Provider>
   );
