@@ -11,6 +11,7 @@ const App = () => {
 
   const [user, userDispatch] = useReducer(authReducer, {}, init);
 
+  // Each time the user is updated, update the local storage state
   useEffect(() => {
     if (!user) return;
     localStorage.setItem("user", JSON.stringify(user));
